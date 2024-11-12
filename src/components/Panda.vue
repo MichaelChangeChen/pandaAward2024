@@ -5,7 +5,7 @@
 				<v-img
 					@click="selectedAward('韓國美食獎', 'A1')"
 					:class="[{ 'actibve': awardType === 'A1' }, 'panda-btn']"
-					src="./public/A1.png.png"
+					src="A1.png.png"
 					cover/>
 				<v-btn
 					@click="openDialog('韓國美食獎', 'A1')"
@@ -18,7 +18,7 @@
 				<v-img
 					@click="selectedAward('Panda pay 111$ 獎', 'A2')"
 					:class="[{ 'actibve': awardType === 'A2' }, 'panda-btn']"
-					src="./public/A2.png.png"
+					src="A2.png.png"
 					cover/>
 				<v-btn
 					@click="openDialog('Panda pay 111$ 獎', 'A2')"
@@ -31,7 +31,7 @@
 				<v-img
 					@click="selectedAward('Panda pay 10,000$ 獎', 'A3')"
 					:class="[{ 'actibve': awardType === 'A3' }, 'panda-btn']"
-					src="./public/A3.png.png"
+					src="A3.png.png"
 					cover/>
 				<v-btn
 					@click="openDialog('Panda pay 10,000$ 獎', 'A3')"
@@ -145,7 +145,7 @@ export default {
 		},
 		getFile() {
 			this.isLoading = true;
-			fetch('./src/assets/largeData.csv')
+			fetch('./public/largeData.csv')
 			.then(response => response.text())
 			.then(data => {
 				const parsedData = Papa.parse(data, { header: true });

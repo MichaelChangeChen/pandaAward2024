@@ -1,7 +1,7 @@
 <template>
 	<div class="main-page">
 		<div class="banner">
-			<v-img src="./public/20241106_foopanda_banner 1.jpg" cover/>
+			<v-img src="20241106_foopanda_banner 1.jpg" cover/>
 			<div class="friend-txt">品牌好友9m88</div>
 		</div>
 		<Panda />
