@@ -88,23 +88,24 @@
 </template>
 
 <script>
-import Loading from '@/components/Loading.vue';
-import Papa from 'papaparse';
 import { toRaw } from 'vue';
+import Papa from 'papaparse';
+import Loading from '@/components/Loading.vue';
+
 export default {
 	components: { Loading },
 	data(){
 		return {
-			totalList: [],
-			awardType: 'A1',
-			awardText: '韓國美食獎',
 			dialog: false,
 			isLoading: false,
 			detailText: null,
-			openList: [],
+			awardType: 'A1',
+			awardText: '韓國美食獎',
 			A1List: [],
 			A2List: [],
 			A3List: [],
+			openList: [],
+			totalList: []
 		}
 	},
 	mounted() {
@@ -121,7 +122,8 @@ export default {
 		}
 	},
 	methods: {
-		selectedAward(typeText, type) {
+		selectedAward(	typeText,
+						type) {
 			this.awardText = typeText;
 			this.awardType = type;
 		},
@@ -148,11 +150,11 @@ export default {
 			.then(response => response.text())
 			.then(data => {
 				const parsedData = Papa.parse(data, { header: true });
-				this.totalList = parsedData.data; 			
+				this.totalList = parsedData.data;
 				this.isLoading = false;
 			})
 			.catch(error => {
-				console.error("Error loading CSV file:", error);		
+				console.error("Error loading CSV file:", error);
 				this.isLoading = false;
 			});
 		},
@@ -165,9 +167,10 @@ export default {
 					this.getRandomWinners(11);
 				if(this.awardType === 'A3')
 					this.getRandomWinners(1);
-			},1000)
+			},1000);
 		},
-		downloadCSV(content, filename) {
+		downloadCSV(content,
+					filename) {
 			const blob = new Blob(["\uFEFF" + content], { type: 'text/csv;charset=utf-8;' });
 			const link = document.createElement('a');
 			link.href = URL.createObjectURL(blob);
