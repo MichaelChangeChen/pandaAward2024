@@ -145,7 +145,7 @@ export default {
 		},
 		getFile() {
 			this.isLoading = true;
-			fetch('./public/largeData.csv')
+			fetch('largeData.csv')
 			.then(response => response.text())
 			.then(data => {
 				const parsedData = Papa.parse(data, { header: true });
