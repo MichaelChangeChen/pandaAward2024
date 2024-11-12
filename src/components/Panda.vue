@@ -88,7 +88,6 @@
 </template>
 
 <script>
-import { toRaw } from 'vue';
 import Papa from 'papaparse';
 import Loading from '@/components/Loading.vue';
 
@@ -185,7 +184,7 @@ export default {
 			this[`${this.awardType}List`] = this.totalList.splice(0, winnerCount);
 			this.downloadCSV(Papa.unparse(this[`${this.awardType}List`]), this.awardText + '.csv');
 			this.openDialog(this.awardText, this.awardType);
-			this.openList = [ ...toRaw(this[`${this.awardType}List`]) ];
+			this.openList = [ ...this[`${this.awardType}List`] ];
 			this.isLoading = false;
 		}
 	}
