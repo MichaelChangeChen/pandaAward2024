@@ -7,7 +7,8 @@
     "serve": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+	"deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "papaparse": "^5.4.1",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
+    "gh-pages": "^6.2.0",
     "sass-embedded": "^1.80.6",
     "vite": "^5.4.10"
   }
