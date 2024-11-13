@@ -3,12 +3,12 @@
 		<div class="panda-btn-group">
 			<div class="btn-group">
 				<v-img
-					@click="selectedAward('韓國美食獎', 'A1')"
+					@click="selectedAward('pandapay 胖達幣 $111', 'A1')"
 					:class="[{ 'actibve': awardType === 'A1' }, 'panda-btn']"
 					src="A1.png.png"
 					cover/>
 				<v-btn
-					@click="openDialog('韓國美食獎', 'A1')"
+					@click="openDialog('pandapay 胖達幣 $111', 'A1')"
 					class="detail-btn"
 					rounded="lg"
 					text="中獎名單"
@@ -16,12 +16,12 @@
 			</div>
 			<div class="btn-group">
 				<v-img
-					@click="selectedAward('Panda pay 111$ 獎', 'A2')"
+					@click="selectedAward('pandapay 胖達幣 $10,000', 'A2')"
 					:class="[{ 'actibve': awardType === 'A2' }, 'panda-btn']"
 					src="A2.png.png"
 					cover/>
 				<v-btn
-					@click="openDialog('Panda pay 111$ 獎', 'A2')"
+					@click="openDialog('pandapay 胖達幣 $10,000', 'A2')"
 					class="detail-btn"
 					rounded="lg"
 					text="中獎名單"
@@ -29,12 +29,12 @@
 			</div>
 			<div class="btn-group">
 				<v-img
-					@click="selectedAward('Panda pay 10,000$ 獎', 'A3')"
+					@click="selectedAward('黑白廚師韓國美食之旅', 'A3')"
 					:class="[{ 'actibve': awardType === 'A3' }, 'panda-btn']"
 					src="A3.png.png"
 					cover/>
 				<v-btn
-					@click="openDialog('Panda pay 10,000$ 獎', 'A3')"
+					@click="openDialog('黑白廚師韓國美食之旅', 'A3')"
 					class="detail-btn"
 					rounded="lg"
 					text="中獎名單"
@@ -67,7 +67,7 @@
 				<v-btn
 					@click="closeDialog()"
 					color="#ff0090"
-					text="close"/>
+					text="X"/>
 			</v-card-title>
 			<v-card-text>
 				<div class="d-flex text-no-wrap font-weight-bold mb-5">
@@ -99,7 +99,7 @@ export default {
 			isLoading: false,
 			detailText: null,
 			awardType: 'A1',
-			awardText: '韓國美食獎',
+			awardText: 'pandapay 胖達幣 $111',
 			A1List: [],
 			A2List: [],
 			A3List: [],
@@ -126,7 +126,8 @@ export default {
 			this.awardText = typeText;
 			this.awardType = type;
 		},
-		openDialog(text, type) {
+		openDialog(	text, 
+					type) {
 			this.detailText = text;
 
 			if(type === 'A1')
@@ -146,9 +147,10 @@ export default {
 		getFile() {
 			this.isLoading = true;
 			fetch('largeData.csv')
-			.then(response => response.text())
+			.then(res => res.text())
 			.then(data => {
-				const parsedData = Papa.parse(data, { header: true });
+				const parsedData = Papa.parse(	data, 
+												{ header: true });
 				this.totalList = parsedData.data;
 				this.isLoading = false;
 			})
@@ -170,7 +172,8 @@ export default {
 		},
 		downloadCSV(content,
 					filename) {
-			const blob = new Blob(["\uFEFF" + content], { type: 'text/csv;charset=utf-8;' });
+			const blob = new Blob(	["\uFEFF" + content], 
+									{ type: 'text/csv;charset=utf-8;' });
 			const link = document.createElement('a');
 			link.href = URL.createObjectURL(blob);
 			link.download = filename;
@@ -183,7 +186,8 @@ export default {
 			};
 			this[`${this.awardType}List`] = this.totalList.splice(0, winnerCount);
 			this.downloadCSV(Papa.unparse(this[`${this.awardType}List`]), this.awardText + '.csv');
-			this.openDialog(this.awardText, this.awardType);
+			this.openDialog(this.awardText, 
+							this.awardType);
 			this.openList = [ ...this[`${this.awardType}List`] ];
 			this.isLoading = false;
 		}
@@ -205,6 +209,7 @@ export default {
 			.panda-btn {
 				width: 300px;
 				user-select: none;
+				transition: .3s ease-in-out;
 				cursor: pointer;
 				:deep(img) {
 					transition: .3s ease-in-out;
@@ -217,6 +222,8 @@ export default {
 				filter: drop-shadow(0 0 15px #ff0090) brightness(1.3);
 			}
 			.detail-btn {
+				font-size: 20px;
+				font-weight: bold;
 				display: block;
 				margin: -15px auto 0;
 			}

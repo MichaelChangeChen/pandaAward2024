@@ -17,6 +17,9 @@
 			bottom: 30px;
 			left: 50px;
 			user-select: none;
+			font-size: 24px;
+			font-weight: bold;
+			text-shadow: 0 0 15px white, 0 0 5px #a7005e;
 		}
 	}
 }
