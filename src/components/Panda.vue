@@ -43,6 +43,7 @@
 		</div>
 		<h1>
 			獎項：{{ awardText }}
+			<span class="spe-text">【名額：{{ this.awardType === 'A1' ? 111 : this.awardType === 'A2' ? 11 : 1 }}名】</span>
 			<span v-if="startDisabled" class="font-weight-thin">（已抽完）</span>
 		</h1>
 		<v-btn
@@ -59,10 +60,14 @@
 	<v-dialog
 		v-model="dialog"
 		max-width="1000"
+		style="user-select: none;"
 		persistent>
 		<v-card>
      		 <v-card-title class="d-flex">
-				<h2 class="text-pink-lighten-1">{{ detailText }}</h2>
+				<h2 class="text-pink-lighten-1">
+					{{ detailText }}
+					<h6 class="d-inline">【名額：{{ this.detailtype === 'A1' ? 111 : this.detailtype === 'A2' ? 11 : 1 }}名】</h6>
+				</h2>
 				<v-spacer/>
 				<v-btn
 					@click="closeDialog()"
@@ -76,7 +81,13 @@
 					<v-divider class="align-self-center border-opacity-50" color="error"/>
 				</div>
 				<div class="d-flex ga-5 justify-center flex-wrap ga-2">
-					<v-chip v-for="(item, index) in openList" :key="item.index" color="pink-lighten-1">{{ index + 1 + ' - ' + item.name + ' - ' + item.phone }}</v-chip>
+					<v-chip
+						v-for="(item, index) in openList"
+						:key="item.index"
+						color="pink-lighten-1"
+						class="text-pink font-weight-bold">
+						{{ '名額' + (index + 1) + ' - ' + item.name + ' - ' + item.email + ' - ' + item.phone }}
+					</v-chip>
 					<h3 v-if="openList.length === 0" class="text-pink font-weight-bold mt-5">～尚未抽獎～</h3>
 				</div>
 			</v-card-text>
@@ -99,6 +110,7 @@ export default {
 			isLoading: false,
 			detailText: null,
 			awardType: 'A1',
+			detailtype: null,
 			awardText: 'pandapay 胖達幣 $111',
 			A1List: [],
 			A2List: [],
@@ -126,9 +138,10 @@ export default {
 			this.awardText = typeText;
 			this.awardType = type;
 		},
-		openDialog(	text, 
+		openDialog(	text,
 					type) {
 			this.detailText = text;
+			this.detailtype = type;
 
 			if(type === 'A1')
 				this.openList = [ ...this.A1List ];
@@ -141,15 +154,17 @@ export default {
 		},
 		closeDialog() {
 			this.dialog = false;
-			this.detailText = null;
-			this.openList = [];
+			setTimeout(() => {
+				this.detailText = null;
+				this.openList = [];
+			}, 500);
 		},
 		getFile() {
 			this.isLoading = true;
 			fetch('largeData.csv')
 			.then(res => res.text())
 			.then(data => {
-				const parsedData = Papa.parse(	data, 
+				const parsedData = Papa.parse(	data,
 												{ header: true });
 				this.totalList = parsedData.data;
 				this.isLoading = false;
@@ -172,7 +187,7 @@ export default {
 		},
 		downloadCSV(content,
 					filename) {
-			const blob = new Blob(	["\uFEFF" + content], 
+			const blob = new Blob(	["\uFEFF" + content],
 									{ type: 'text/csv;charset=utf-8;' });
 			const link = document.createElement('a');
 			link.href = URL.createObjectURL(blob);
@@ -186,7 +201,7 @@ export default {
 			};
 			this[`${this.awardType}List`] = this.totalList.splice(0, winnerCount);
 			this.downloadCSV(Papa.unparse(this[`${this.awardType}List`]), this.awardText + '.csv');
-			this.openDialog(this.awardText, 
+			this.openDialog(this.awardText,
 							this.awardType);
 			this.openList = [ ...this[`${this.awardType}List`] ];
 			this.isLoading = false;
@@ -197,6 +212,7 @@ export default {
 
 <style lang="scss" scoped>
 .panda {
+	user-select: none;
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
@@ -236,7 +252,10 @@ export default {
 		text-align: center;
 		text-shadow: 0 0 10px white, 0 0 20px #ff68be;
 		span {
-			font-size: 20px;
+			font-size: 18px;
+		}
+		.spe-text {
+			text-shadow: 0 0 8px white;
 		}
 	}
 	.active-btn {
