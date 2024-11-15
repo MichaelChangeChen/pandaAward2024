@@ -86,7 +86,7 @@
 						:key="item.index"
 						color="pink-lighten-1"
 						class="text-pink font-weight-bold">
-						{{ '名額' + (index + 1) + ' - ' + item.name + ' - ' + item.email + ' - ' + item.phone }}
+						{{ '名額' + (index + 1) + ' - ' + item.name + ' - ' + item.phone }}
 					</v-chip>
 					<h3 v-if="openList.length === 0" class="text-pink font-weight-bold mt-5">～尚未抽獎～</h3>
 				</div>
