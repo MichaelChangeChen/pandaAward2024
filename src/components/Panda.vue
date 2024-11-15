@@ -85,7 +85,7 @@
 						v-for="(item, index) in openList"
 						:key="item.index"
 						color="pink-lighten-1"
-						class="text-pink font-weight-bold">
+						class="min-wid text-pink font-weight-bold">
 						{{ '名額' + (index + 1) + ' - ' + item.name + ' - ' + item.phone }}
 					</v-chip>
 					<h3 v-if="openList.length === 0" class="text-pink font-weight-bold mt-5">～尚未抽獎～</h3>
@@ -211,6 +211,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.min-wid {
+	min-width: 280px;
+}
 .panda {
 	user-select: none;
 	display: flex;
