@@ -2,6 +2,10 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 
+// axios - https://www.npmjs.com/package/vue-axios
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -12,4 +16,4 @@ const vuetify = createVuetify({
 	directives
 });
 
-createApp(App).use(vuetify).mount('#app')
+createApp(App).use(vuetify, VueAxios, axios).mount('#app')
