@@ -3,29 +3,36 @@ name: Deploy Vite site to GitHub Pages
 on:
   push:
     branches:
-      - main  # 或改成你要觸發的分支
+      - main  # 當推送到 `main` 分支時觸發
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout 代碼
       - name: Checkout source code
         uses: actions/checkout@v3
 
+      # 2. 設置 Node.js 環境
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18  # 或者你使用的 Node.js 版本
 
+      # 3. 安裝專案依賴
       - name: Install dependencies
         run: npm install
 
+      # 4. 構建專案
       - name: Build site
-        run: npm run build
+        run: npm run build  # 確保你的 `package.json` 有這個命令
 
+      # 5. 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自動提供的 token
+          publish_dir: ./dist  # 這是 Vite 默認的構建輸出資料夾
+          clean: true  # 每次部署之前清理舊的檔案
+          # force: true  # 如果需要強制推送（用來避免有些衝突問題）
