@@ -34,5 +34,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自動提供的 token
           publish_dir: ./dist  # 這是 Vite 默認的構建輸出資料夾
-          clean: true  # 每次部署之前清理舊的檔案
-          # force: true  # 如果需要強制推送（用來避免有些衝突問題）
