@@ -33,4 +33,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自動提供的 token
-          publish_dir: ./dist  # 這是 Vite 默認的構建輸出資料夾
+          publish_dir: ./dist  # 這是 Vite 默認的構建輸出資料夾 
